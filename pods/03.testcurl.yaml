@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: testcurl
+  name: testcurl
+spec:
+  containers:
+    - image: curlimages/curl:latest
+      name: testcurl
+      command:
+        - /bin/sh
+        - -c
+        - sleep 1000
+  restartPolicy: Never
