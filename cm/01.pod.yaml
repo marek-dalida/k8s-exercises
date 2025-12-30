@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-01
+  labels:
+    app: test
+spec:
+  containers:
+    - name: busybox
+      image: busybox:1.36
+      command: ['sh', '-c', 'echo "Hello $NAME, your color is $COLOR and country is $COUNTRY" && sleep 3600']
+      env:
+        - name: NAME
+          value: MAREK
+        - name: COLOR
+          value: blue
+        - name: COUNTRY
+          value: POLAND

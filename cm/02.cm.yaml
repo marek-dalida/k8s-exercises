@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-02
+data:
+  color: blue
+  name: Marek
+  country: PL
