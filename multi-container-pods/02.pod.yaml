@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mcp
+  name: mcp
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.28
+    - name: haproxy
+      image: haproxy:3.3.1
+      ports:
+        - containerPort: 9000
+      volumeMounts:
+        - mountPath: /usr/local/etc/haproxy
+          name: haproxy-vol
+  volumes:
+    - name: haproxy-vol
+      configMap:
+        name: haproxy-cm
