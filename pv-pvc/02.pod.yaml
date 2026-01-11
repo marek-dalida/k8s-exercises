@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod-pv
+  name: pod-pv
+spec:
+  containers:
+    - image: busybox:1.36
+      name: test-pvc
+      command: [/bin/sh, -c, while true; do sleep 5; done]
+      volumeMounts:
+        - mountPath: /foo
+          name: my-storage
+  nodeName: minikube
+  volumes:
+    - name: my-storage
+      persistentVolumeClaim:
+        claimName: pvc01
