@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: truncate-cronjob
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeName: minikube
+          containers:
+            - name: bb
+              image: busybox:1.36
+              command: [/bin/sh, -c, "truncate -s 0 /dir/datafile; sleep 15"]
+              volumeMounts:
+                - mountPath: /dir/datafile
+                  name: v1
+          restartPolicy: OnFailure
+          volumes:
+            - name: v1
+              hostPath:
+                path: /mnt/f0
+                type: FileOrCreate
+  schedule: "* * * * *"

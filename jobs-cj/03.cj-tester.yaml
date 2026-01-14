@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cj-tester
+spec:
+  nodeName: minikube
+  containers:
+    - name: bb
+      image: busybox:1.36
+      command: [/bin/sh, -c, "while true; do date >> /dir/datafile; echo ---; cat /dir/datafile | tail -3; cat /dir/datafile | wc -l; sleep 2; done"]
+      volumeMounts:
+        - mountPath: /dir/datafile
+          name: v1
+  restartPolicy: OnFailure
+  volumes:
+    - name: v1
+      hostPath:
+        path: /mnt/f0
+        type: FileOrCreate
