@@ -1,0 +1,28 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: workshop-postgres-cluster
+spec:
+  teamId: "workshop"
+  volume:
+    size: 100Mi
+    storageClass: local-path
+  numberOfInstances: 2
+  users:
+    zalando:  # database owner
+      - superuser
+      - createdb
+    foo_user: []  # role for application foo
+  databases:
+    foo: zalando  # dbname: owner
+  preparedDatabases:
+    bar: {}
+  postgresql:
+    version: "16"
+  resources:
+    limits:
+      cpu: 250m
+      memory: 250Mi
+    requests:
+      cpu: 50m
+      memory: 50Mi
